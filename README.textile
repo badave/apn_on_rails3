@@ -28,7 +28,7 @@ This will create the tables for ActiveRecord.  One thing to note is the device a
 In the rails console, create an app and create a device for that app. Note that the device token does have to have spaces.  If it doesn't, this will fix it:
 
 <pre><code>
-  >> token = [56, 48, 40, 32, 24, 16, 8].each { |i| data['access_token'].insert(i, ' ') }
+  >> token = [56, 48, 40, 32, 24, 16, 8].each { |i| token.insert(i, ' ') }
 
 </code></pre> 
 <pre><code>
