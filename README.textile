@@ -1,5 +1,8 @@
 h1. APN on Rails (Apple Push Notifications on Rails)
 
+If you didn't know, the PRX version of apn_on_rails that you will find in rubygems is not rails3 compliant.  This one is -- it's forked from bnigro who did a great job making it rails 3 compliant.
+
+All I've done here is put together a list of the things that you need to make it work (and commented out debug code).  Enjoy!
 
 To install the gem, add 
 
