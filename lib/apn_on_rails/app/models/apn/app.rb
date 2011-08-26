@@ -29,7 +29,7 @@ class APN::App < APN::Base
   def self.send_notifications
     apps = APN::App.all 
     apps.each do |app|
-      puts "Analisando notificacoes da aplicacao de id = " + app.id.to_s
+    # puts "Analisando notificacoes da aplicacao de id = " + app.id.to_s
       app.send_notifications
     end
     if !configatron.apn.cert.blank?
@@ -39,27 +39,27 @@ class APN::App < APN::Base
   end
   
   def self.send_notifications_for_cert(the_cert, app_id)
-    puts "send_notifications_for_cert - Entrada"
+    # puts "send_notifications_for_cert - Entrada"
     # unless self.unsent_notifications.nil? || self.unsent_notifications.empty?
       if (app_id == nil)
         conditions = "app_id is null"
       else 
         conditions = ["app_id = ?", app_id]
       end
-      puts "send_notifications_for_cert - Ponto 0"
+      # puts "send_notifications_for_cert - Ponto 0"
       begin
         APN::Connection.open_for_delivery({:cert => the_cert}) do |conn, sock|
-          puts "send_notifications_for_cert - Ponto 1"
+          # puts "send_notifications_for_cert - Ponto 1"
           APN::Device.find_each(:conditions => conditions) do |dev|
-            puts "send_notifications_for_cert - Ponto 2"
+            # puts "send_notifications_for_cert - Ponto 2"
             dev.unsent_notifications.each do |noty|
-              puts "send_notifications_for_cert - Ponto 3"
+              # puts "send_notifications_for_cert - Ponto 3"
               conn.write(noty.message_for_sending)
-              puts "send_notifications_for_cert - Ponto 4"
+              # puts "send_notifications_for_cert - Ponto 4"
               noty.sent_at = Time.now
-              puts "send_notifications_for_cert - Ponto 5"
+              # puts "send_notifications_for_cert - Ponto 5"
               noty.save
-              puts "send_notifications_for_cert - Ponto 6"
+              # puts "send_notifications_for_cert - Ponto 6"
             end
           end
         end
@@ -144,10 +144,10 @@ class APN::App < APN::Base
     puts "in APN::App.process_devices_for_cert"
     APN::Feedback.devices(the_cert).each do |device|
       if device.last_registered_at < device.feedback_at
-        puts "device #{device.id} -> #{device.last_registered_at} < #{device.feedback_at}"
+        # puts "device #{device.id} -> #{device.last_registered_at} < #{device.feedback_at}"
         device.destroy
       else 
-        puts "device #{device.id} -> #{device.last_registered_at} not < #{device.feedback_at}"
+        # puts "device #{device.id} -> #{device.last_registered_at} not < #{device.feedback_at}"
       end
     end 
   end
