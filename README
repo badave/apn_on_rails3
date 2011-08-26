@@ -3,7 +3,7 @@
 
 To install the gem, add 
 
-  >> gem 'apn_on_rails', :git => 'git@github.com:badave/apn_on_rails3.git' 
+  >> gem 'apn_on_rails', :git => 'git://github.com/badave/apn_on_rails3.git' 
  
 to your gem file and 
   $ bundle install
@@ -16,7 +16,7 @@ This will create the tables for ActiveRecord.  One thing to note is the device a
 
 In the rails console, create an app and create a device for that app. Note that the device token does have to have spaces.  If it doesn't, this will fix it:
 
-  >> token = [56, 48, 40, 32, 24, 16, 8].each { |i| data['access_token'].insert(i, ' ') }
+  >> [56, 48, 40, 32, 24, 16, 8].each { |i| token.insert(i, ' ') }
 
   >> app = APN::App.create(:apn_dev_cert => File.read(File.join(RAILS_ROOT, 'config', 'certs', 'CERTIFICATE')), :apn_prod_cert => File.read(File.join(RAILS_ROOT, 'config', 'certs', 'CERTIFICATE')))
   >> device = APN::Device.find_by_token(token) || APN::Device.create(:token => token)
