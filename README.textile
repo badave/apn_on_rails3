@@ -7,7 +7,7 @@ All I've done here is put together a list of the things that you need to make it
 To install the gem, add 
 
 <pre><code>
-  >> gem 'apn_on_rails', :git => 'git@github.com:badave/apn_on_rails3.git' 
+  >> gem 'apn_on_rails', :git => 'git://github.com/badave/apn_on_rails3.git' 
 
 </code></pre> 
 to your gem file and 
