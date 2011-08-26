@@ -11,8 +11,8 @@ module ApnOnRails
     end
 
     rails_env = 'development'
-    if defined?(RAILS_ENV)
-              rails_env = RAILS_ENV
+    if defined?(Rails.env)
+              rails_env = Rails.env
             end
 
     configatron.apn.set_default(:passphrase, '')
