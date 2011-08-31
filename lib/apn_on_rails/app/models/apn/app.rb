@@ -66,7 +66,7 @@ class APN::App < APN::Base
       rescue Exception => e
         puts e.message
       end
-      puts "send_notifications_for_cert - Saida"
+      # puts "send_notifications_for_cert - Saida"
     # end   
   end
   
