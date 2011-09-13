@@ -91,4 +91,8 @@ class APN::Notification < APN::Base
     APN::App.send_notifications
   end
   
+  def self.mark_sent(notification_ids)
+    time = Time.now
+    APN::Notification.update_all ['sent_at=?', time], ["id IN (?)", notification_ids]
+  end
 end # APN::Notification

@@ -53,27 +53,30 @@ class APN::App < APN::Base
           APN::Device.find_each(:conditions => conditions) do |dev|
             # puts "send_notifications_for_cert - Ponto 2"
             unsent_notifications = dev.unsent_notifications
+            next if unsent_notifications.length == 0
+            
             last = ""
+            mark_as_sent = []
             unsent_notifications.map! do |noty| 
               unless noty.alert == last
                 last = noty.alert
                 noty
+              else
+                mark_as_sent.push noty.id
               end
             end
+            
             unsent_notifications.each do |noty|
               next unless noty
-              # puts "send_notifications_for_cert - Ponto 3"
               begin
                 conn.write(noty.message_for_sending)
               rescue => e
                 Rails.logger.error e.message
               end
-              # puts "send_notifications_for_cert - Ponto 4"
-              noty.sent_at = Time.now
-              # puts "send_notifications_for_cert - Ponto 5"
-              noty.save
-              # puts "send_notifications_for_cert - Ponto 6"
+              mark_as_sent.push noty.id
             end
+            
+            APN::Notification.mark_sent(mark_as_sent)
           end
         end
       rescue Exception => e

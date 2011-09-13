@@ -16,4 +16,6 @@ group :development do
   gem "rcov", ">= 0"
   gem "actionpack", '~> 2.3.0'
   gem 'activerecord', "~> 2.3.0", :require => 'active_record'
+  gem 'redis'
+  gem 'ohm'
 end
