@@ -51,7 +51,7 @@ class APN::Notification < APN::Base
   def apple_hash
     result = {}
     result['aps'] = {}
-    result['aps']['alert'] = self.alert if self.alert
+    result['aps']['alert'] = self.alert[0..240] if self.alert
     result['aps']['badge'] = self.badge.to_i if self.badge
     if self.sound
       result['aps']['sound'] = self.sound if self.sound.is_a? String
@@ -81,6 +81,7 @@ class APN::Notification < APN::Base
   def message_for_sending
     json = self.to_apple_json
     message = "\0\0 #{self.device.to_hexa}\0#{json.length.chr}#{json}"
+    
     raise APN::Errors::ExceededMessageSizeError.new(message) if message.size.to_i > 256
     message
   end
